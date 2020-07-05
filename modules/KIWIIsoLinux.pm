@@ -842,7 +842,7 @@ sub findAndCopyMagicBlock {
     $iso_blk -> close();
     $iso_fd  -> close();
     $kiwi -> loginfo ("
-        KIWIIsoLinux::findAndCopyMagicBlock start block at: $start\n $iso_fd \n $iso_blk \n $iso"
+        KIWIIsoLinux::findAndCopyMagicBlock start block at: $start\n"
     );
     $this->{magic_offset} = $start * 4;
     $this->{magic_loop_offset} = $start * 2048;
@@ -947,9 +947,10 @@ sub createISO {
     #------------------------------------------
     if ($hybrid) {
         if (! $this -> findAndCopyMagicBlock()) {
-            $kiwi -> error  ("Failed to read magic iso header");
-            $kiwi -> failed ();
-            $this -> cleanISO();
+            #$kiwi -> error  ("Failed to read magic iso header");
+            $kiwi -> info  ("Failed to read magic iso header");
+            #$kiwi -> failed ();
+            #$this -> cleanISO();
             return;
         }
         if ($this -> isEmptyDir ($ldir)) {

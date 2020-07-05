@@ -59,10 +59,10 @@ sub _new_instance {
     #------------------------------------------
     my %data;
     $data{Version}         = "1.01.01";
-    $data{Publisher}       = "SUSE LINUX GmbH";
+    $data{Publisher}       = "Ganapathi";
     $data{Preparer}        = "KIWI - http://opensuse.github.com/kiwi";
     $data{ConfigName}      = "config.xml";
-    $data{PackageManager}  = "zypper";
+    $data{PackageManager}  = "dnf";
     #============================================
     # Read .kiwirc
     #--------------------------------------------
