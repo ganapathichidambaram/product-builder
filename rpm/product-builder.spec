@@ -1,33 +1,22 @@
 #
 # spec file for package product-builder
 #
-# Copyright (c) 2019 SUSE LINUX GmbH, Nuernberg, Germany.
-#
-# All modifications and additions to the file contributed by third parties
-# remain the property of their copyright owners, unless otherwise agreed
-# upon. The license for this file, and modifications and additions to the
-# file, is the same license as for the pristine package itself (unless the
-# license for the pristine package is not an Open Source License, in which
-# case the license is the MIT License). An "Open Source License" is a
-# license that conforms to the Open Source Definition (Version 1.9)
-# published by the Open Source Initiative.
 
-# Please submit bugfixes or comments via https://bugs.opensuse.org/
-#
+%global debug_package %{nil}
 
-
-Summary:        SUSE Product Builder
+Summary:        CentOS Product Builder
 License:        GPL-2.0-only
 Group:          System/Management
-Url:            http://github.com/openSUSE/product-builder
+Url:            http://github.com/ganapathichidambaram/product-builder
 Name:           product-builder
 Conflicts:      kiwi
 Conflicts:      kiwi-instsource
-Version:        1.2.3a
+Version:        1.2.11
 Release:        0
 Provides:       kiwi-schema = 6.2
 Source:         product-builder-%version.tar.xz
 
+BuildRequires: git
 Requires:       libxslt
 Requires:       perl >= %{perl_version}
 Requires:       perl-Class-Singleton
@@ -52,10 +41,10 @@ Requires:       syslinux
 %endif
 
 %description
-The SUSE product builder, builds product media (CD/DVD) for
-the SUSE product portfolio. Based on kiwi perl implementation.
+The CentOS product builder, builds product media (CD/DVD) for
+the CentOS product portfolio. Based on kiwi perl implementation.
 
-To be used only for product medias for Leap 15 and SLE 15.
+To be used only for product medias for CentOS 8.
 
 %prep
 %setup -q
