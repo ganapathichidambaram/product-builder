@@ -765,15 +765,15 @@ sub createISOLinuxConfig {
     my $kiwi = $this -> {kiwi};
     my $src  = $this -> {source};
     my $isox = "/usr/bin/isolinux-config";
-    if (! -x $isox) {
-        $kiwi -> error  ("Can't find isolinux-config binary");
-        $kiwi -> failed ();
-        $this -> cleanISO();
-        return;
-    }
-    my $data = KIWIQX::qxx (
-        "$isox --base $boot/loader $src/$boot/loader/isolinux.bin 2>&1"
-    );
+    #if (! -x $isox) {
+    #    $kiwi -> error  ("Can't find isolinux-config binary");
+    #    $kiwi -> failed ();
+    #    $this -> cleanISO();
+    #    return;
+    #}
+    #my $data = KIWIQX::qxx (
+    #    "$isox --base $boot $src/$boot/isolinux.bin 2>&1"
+    #);
     my $code = $? >> 8;
     if ($code != 0) {
         # /.../
@@ -783,7 +783,7 @@ sub createISOLinuxConfig {
         my $data = KIWIQX::qxx ("mkdir -p $src/isolinux 2>&1");
         my $code = $? >> 8;
         if ($code == 0) {
-            $data = KIWIQX::qxx ("ln $src/$boot/loader/* $src/isolinux/ 2>&1");
+            $data = KIWIQX::qxx ("ln $src/$boot/* $src/isolinux/ 2>&1");
             $code = $? >> 8;
         };
     }
