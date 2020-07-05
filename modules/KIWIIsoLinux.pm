@@ -842,7 +842,7 @@ sub findAndCopyMagicBlock {
     $iso_blk -> close();
     $iso_fd  -> close();
     $kiwi -> loginfo ("
-        KIWIIsoLinux::findAndCopyMagicBlock start block at: $start\n"
+        KIWIIsoLinux::findAndCopyMagicBlock start block at: $start\n $iso_fd \n $iso_blk \n $iso"
     );
     $this->{magic_offset} = $start * 4;
     $this->{magic_loop_offset} = $start * 2048;
