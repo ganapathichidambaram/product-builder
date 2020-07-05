@@ -31,7 +31,7 @@ Requires:       perl-libwww-perl
 
 Provides:       kiwi-packagemanager:instsource
 Provides:       system-packages:kiwi-product
-#Requires:       build
+Requires:       obs-build
 Requires:       checkmedia
 Requires:       inst-source-utils
 Requires:       mkisofs
