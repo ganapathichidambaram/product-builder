@@ -780,7 +780,7 @@ sub mainTask {
         $attr .= " -p \"$this->{gdata}->{Preparer}\"";
         $attr .= " -publisher \"$this->{gdata}->{Publisher}\"";
         $attr .= " -A \"$name\"";
-        $attr .= " -V \"$this->{m_proddata}->getVar('MEDIUM_NAME')\"";
+        $attr .= " -V \"".$this->{m_proddata}->getVar('MEDIUM_NAME')."\"";
         my $checkmedia = '';
         if ( defined($this->{m_proddata}->getVar("RUN_MEDIA_CHECK"))
             && $this->{m_proddata}->getVar("RUN_MEDIA_CHECK") ne "false"
