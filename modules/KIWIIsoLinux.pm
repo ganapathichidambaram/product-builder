@@ -313,7 +313,7 @@ sub x86_64_efi {
     my $loader= $base{$arch}{efi};
     my $sort  = $this -> createLegacySortFile ("x86_64");
     my $src   = $this -> {source};
-    KIWIQX::qxx ("echo $src/boot/$arch/efi 1000001 >> $sort");
+    KIWIQX::qxx ("echo $src/isolinux/vmlinuz 1000001 >> $sort");
     #==========================================
     # add end-of-header marker
     #------------------------------------------
