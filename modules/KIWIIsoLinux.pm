@@ -951,7 +951,7 @@ sub createISO {
             $kiwi -> info  ("Failed to read magic iso header");
             #$kiwi -> failed ();
             #$this -> cleanISO();
-            return;
+            #return;
         }
         if ($this -> isEmptyDir ($ldir)) {
             $cmdln = "$prog $para -o $dest $src 2>&1";
