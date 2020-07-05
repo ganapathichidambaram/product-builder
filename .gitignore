@@ -8,3 +8,5 @@
 .kiwirc
 # revision file created for packaging or if called from git checkout
 .revision
+.vs
+.vscode

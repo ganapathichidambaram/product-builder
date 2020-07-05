@@ -128,9 +128,9 @@ sub new {
     $base{ix86}{loader}  = "boot/i386/loader/isolinux.bin";
     $base{ix86}{efi}     = "boot/i386/efi";
     # x86_64
-    $base{x86_64}{boot}  = "boot/x86_64";
-    $base{x86_64}{loader}= "boot/x86_64/loader/isolinux.bin";
-    $base{x86_64}{efi}   = "boot/x86_64/efi";
+    $base{x86_64}{boot}  = "isolinux";
+    $base{x86_64}{loader}= "isolinux/isolinux.bin";
+    $base{x86_64}{efi}   = "isolinux/vmlinuz";
     # ia64
     $base{ia64}{boot}    = "boot/ia64";
     $base{ia64}{loader}  = "undef";
@@ -204,7 +204,7 @@ sub new {
         }
     }
     #==========================================
-    # create tmp files/directories 
+    # create tmp files/directories
     #------------------------------------------
     $sort = KIWIQX::qxx ("mktemp -t kiso-sort-XXXXXX 2>&1"); chomp $sort;
     $code = $? >> 8;
@@ -510,7 +510,7 @@ sub callBootMethods {
     }
     return $this;
 }
-    
+
 #==========================================
 # createLegacySortFile
 #------------------------------------------
@@ -703,7 +703,7 @@ sub createS390CDLoader {
 }
 
 #==========================================
-# createVolumeID 
+# createVolumeID
 #------------------------------------------
 sub createVolumeID {
     my $this = shift;
