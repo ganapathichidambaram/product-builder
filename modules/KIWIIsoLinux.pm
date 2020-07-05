@@ -535,7 +535,7 @@ sub createLegacySortFile {
         return;
     }
     if ($arch ne "aarch64") {
-        find ({wanted => $wref,follow => 0 },$src."/".$base{$arch}{boot}."/loader");
+        find ({wanted => $wref,follow => 0 },$src."/".$base{$arch}{boot}."");
     }
     print $FD "$ldir/".$base{$arch}{boot}."/boot.catalog 3"."\n";
     print $FD $base{$arch}{boot}."/boot.catalog 3"."\n";
@@ -543,7 +543,7 @@ sub createLegacySortFile {
     foreach my $file (@list) {
         print $FD "$file 1"."\n";
     }
-    print $FD $src."/".$base{$arch}{boot}."/loader/isolinux.bin 2"."\n";
+    print $FD $src."/".$base{$arch}{boot}."/isolinux.bin 2"."\n";
     close $FD;
     $this->{sortfile} = $sort;
     return $sort;
