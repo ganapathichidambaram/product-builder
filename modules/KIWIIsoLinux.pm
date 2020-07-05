@@ -495,7 +495,7 @@ sub callBootMethods {
     my %base    = %{$this->{base}};
     my $ldir    = $this->{tmpdir};
     if (! @catalog) {
-        $kiwi -> error  ("Can't find valid boot/<arch>/ layout");
+        $kiwi -> error  ("Can't find valid boot/<arch>/ layout -- $this->{catalog}");
         $kiwi -> failed ();
         return;
     }

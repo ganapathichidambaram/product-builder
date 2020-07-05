@@ -186,7 +186,7 @@ sub logMsg {
     # kiwi log extension suitable for product builds which
     # directly prints messages as raw output in order to
     # speed up the build
-    # --- 
+    # ---
     my $this = shift;
     my $mode = shift;
     my $string = shift;
@@ -350,7 +350,7 @@ sub Init {
     for my $repo (@{$prodrepo}) {
         my $name = $repo -> getName();
         my $prio = $repo -> getPriority();
-        my ($user,$pwd) = $repo -> getCredentials(); 
+        my ($user,$pwd) = $repo -> getCredentials();
         my $islocal =  $repo -> isLocal();
         my $path = $repo -> getPath();
         my $source = $this->{m_xml} -> __resolveLink ($path);
@@ -797,7 +797,7 @@ sub mainTask {
         );
         # Just the first media is usually bootable at SUSE
         my $is_bootable = 0;
-        if(-d "$this->{m_basesubdir}->{$cd}/boot") {
+        if(-d "$this->{m_basesubdir}->{$cd}/isolinux") {
             if(!$iso->callBootMethods()) {
                 my $msg = 'Creating boot methods failed, medium maybe '
                     . 'not be bootable';
@@ -1465,7 +1465,7 @@ sub printTrackLine {
 sub addToTrackFile {
     my ($this, $name, $pkg, $medium, $on_media_path) = @_;
     if (!$this->{m_reportLog}->{$medium}) {
-        $this->{m_reportLog}->{$medium}->{filename} = 
+        $this->{m_reportLog}->{$medium}->{filename} =
             "$this->{m_basesubdir}->{$medium}.report";
     }
     my %hash = (
@@ -2297,7 +2297,7 @@ sub unpackModules {
 
     # So far DUDs only have one single medium
     my $medium = 1;
-    
+
     # unpack module packages to temp dir for the used architectures
     for my $arch (keys(%target_archs)) {
         my $arch_tmp_dir = "$tmp_dir/$arch";
@@ -2364,14 +2364,14 @@ sub unpackInstSys {
     my $packref = $this->{m_xml} -> getDUDInstallSystemPackages();
     for my $package (@{$packref}) {
         my $name = $package -> getName();
-        push @inst_sys_packages,$name;  
+        push @inst_sys_packages,$name;
     }
     my %targets = %{$this->{m_xml}->getDUDArchitectures()};
     my %target_archs = reverse %targets;
 
     # So far DUDs only have one single medium
     my $medium = 1;
-    
+
     # unpack module packages to temp dir for the used architectures
     foreach my $arch (keys(%target_archs)) {
         my $repo = "repository_1\@$arch";
