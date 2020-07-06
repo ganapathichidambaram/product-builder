@@ -1256,30 +1256,30 @@ sub collectPackages {
         for my $n(@media) {
             my $num = $n;
             $num = 1 if $this->seperateMedium($n);
-            my $mediafile = "$this->{m_basesubdir}->{$n}/media.$num/media";
-            my $MEDIA = FileHandle -> new();
-            if(! $MEDIA -> open (">$mediafile")) {
-                $this->logMsg('E', "Cannot create file <$mediafile>");
-                return;
-            }
-            my $medium_suffix = "";
-            $medium_suffix = "-DEBUG"  if $n gt 1 && $this->{m_debugmedium} == $n;
-            $medium_suffix = "-SOURCE" if $n gt 1 && $this->{m_srcmedium}   == $n;
-            print $MEDIA "$manufacturer - ";
-            print $MEDIA "$medium_name$medium_suffix\n";
-            print $MEDIA $this->{m_proddata}->getVar("BUILD_ID", "0")."\n";
-            if($num == 1) {
-                # some specialities for medium number 1: contains a line with
-                # the number of media
-                if ($this->seperateMedium($n)) {
-                    print $MEDIA "1\n";
-                } else {
-                    my $set = @media;
-                    $set-- if ( $this->{m_debugmedium} >= 2 );
-                    print $MEDIA $set."\n";
-                }
-            }
-            $MEDIA -> close();
+            #my $mediafile = "$this->{m_basesubdir}->{$n}/media.$num/media";
+            #my $MEDIA = FileHandle -> new();
+            #if(! $MEDIA -> open (">$mediafile")) {
+            #    $this->logMsg('E', "Cannot create file <$mediafile>");
+            #    return;
+            #}
+            #my $medium_suffix = "";
+            #$medium_suffix = "-DEBUG"  if $n gt 1 && $this->{m_debugmedium} == $n;
+            #$medium_suffix = "-SOURCE" if $n gt 1 && $this->{m_srcmedium}   == $n;
+            #print $MEDIA "$manufacturer - ";
+            #print $MEDIA "$medium_name$medium_suffix\n";
+            #print $MEDIA $this->{m_proddata}->getVar("BUILD_ID", "0")."\n";
+            #if($num == 1) {
+            #    # some specialities for medium number 1: contains a line with
+            #    # the number of media
+            #    if ($this->seperateMedium($n)) {
+            #        print $MEDIA "1\n";
+            #    } else {
+            #        my $set = @media;
+            #        $set-- if ( $this->{m_debugmedium} >= 2 );
+            #        print $MEDIA $set."\n";
+            #    }
+            #}
+            #$MEDIA -> close();
         }
     } else {
         $this->logMsg('E',
@@ -1407,14 +1407,14 @@ sub collectPackages {
     for my $n($this->getMediaNumbers()) {
         my $num = $n;
         $num = 1 if $this->seperateMedium($n);
-        my $productsfile =
-            "$this->{m_basesubdir}->{$n}/media.$num/products";
-        my $PRODUCT;
-        if(! open($PRODUCT, ">", $productsfile)) {
-            die "Cannot create $productsfile";
-        }
-        print $PRODUCT "/ $prodsummary $prodver$prodrel\n";
-        close $PRODUCT;
+        #my $productsfile =
+        #    "$this->{m_basesubdir}->{$n}/media.$num/products";
+        #my $PRODUCT;
+        #if(! open($PRODUCT, ">", $productsfile)) {
+        #    die "Cannot create $productsfile";
+        #}
+        #print $PRODUCT "/ $prodsummary $prodver$prodrel\n";
+        #close $PRODUCT;
     }
 
     # step 7: write out the channel files based on the collected rpms
