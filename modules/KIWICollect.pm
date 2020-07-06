@@ -777,9 +777,10 @@ sub mainTask {
         $attr .= " -f"; # follow symlinks - really necessary?
         $attr .= " -J"; # Joilet extensions - only useful for i586/x86_64,
         $attr .= " -joliet-long"; # longer filenames for joilet filenames
+        $attr .= " -sysid \"LINUX\""; # System ID to Linux
         $attr .= " -p \"$this->{gdata}->{Preparer}\"";
         $attr .= " -publisher \"$this->{gdata}->{Publisher}\"";
-        $attr .= " -A \"$name\"";
+        $attr .= " -A \"".$this->{m_proddata}->getVar('PRODUCT_NAME')."\"";
         $attr .= " -V \"".$this->{m_proddata}->getVar('PRODUCT_NAME')."\"";
         my $checkmedia = '';
         if ( defined($this->{m_proddata}->getVar("RUN_MEDIA_CHECK"))

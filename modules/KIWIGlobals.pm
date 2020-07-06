@@ -59,8 +59,8 @@ sub _new_instance {
     #------------------------------------------
     my %data;
     $data{Version}         = "1.01.01";
-    $data{Publisher}       = "Ganapathi";
-    $data{Preparer}        = "KIWI - http://opensuse.github.com/kiwi";
+    $data{Publisher}       = "TechnoBureau - https://technobureau.com";
+    $data{Preparer}        = "Ganapathi Chidambaram";
     $data{ConfigName}      = "config.xml";
     $data{PackageManager}  = "dnf";
     #============================================
