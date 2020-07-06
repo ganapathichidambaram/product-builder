@@ -130,7 +130,7 @@ sub new {
     # x86_64
     $base{x86_64}{boot}  = "isolinux";
     $base{x86_64}{loader}= "isolinux/isolinux.bin";
-    $base{x86_64}{efi}   = "isolinux/vmlinuz";
+    $base{x86_64}{efi}   = "images/pxeboot/vmlinuz";
     # ia64
     $base{ia64}{boot}    = "boot/ia64";
     $base{ia64}{loader}  = "undef";
@@ -313,7 +313,7 @@ sub x86_64_efi {
     my $loader= $base{$arch}{efi};
     my $sort  = $this -> createLegacySortFile ("x86_64");
     my $src   = $this -> {source};
-    KIWIQX::qxx ("echo $src/isolinux/vmlinuz 1000001 >> $sort");
+    KIWIQX::qxx ("echo $src/images/pxeboot/vmlinuz 1000001 >> $sort");
     #==========================================
     # add end-of-header marker
     #------------------------------------------
