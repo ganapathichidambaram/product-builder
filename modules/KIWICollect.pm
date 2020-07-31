@@ -1067,9 +1067,12 @@ sub setupPackageFiles {
                     .'-'
                     .$packPointer->{'release'}
                     .".$packPointer->{'arch'}.rpm";
+                #$packOptions->{$requestedArch}->{'newpath'} =
+                #    "$this->{m_basesubdir}->{$medium}"
+                #    ."/$packPointer->{'arch'}";
                 $packOptions->{$requestedArch}->{'newpath'} =
                     "$this->{m_basesubdir}->{$medium}"
-                    ."/$packPointer->{'arch'}";
+                    ."/BaseOS/Packages";
                 # check for target directory:
                 if (! $this->{m_dirlist}->
                     {"$packOptions->{$requestedArch}->{'newpath'}"}
