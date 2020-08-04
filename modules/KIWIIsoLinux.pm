@@ -130,7 +130,7 @@ sub new {
     # x86_64
     $base{x86_64}{boot}  = "isolinux";
     $base{x86_64}{loader}= "isolinux/isolinux.bin";
-    $base{x86_64}{efi}   = "images/pxeboot/vmlinuz";
+    $base{x86_64}{efi}   = "images/efiboot.img";
     # ia64
     $base{ia64}{boot}    = "boot/ia64";
     $base{ia64}{loader}  = "undef";
@@ -273,8 +273,8 @@ sub x86_64_legacy {
     my $loader= $base{$arch}{loader};
     $para.= " -sort $sort" if $sort;
     $para.= " -no-emul-boot -boot-load-size 4 -boot-info-table";
-    $para.= " -b $loader -c $boot/boot.catalog";
-    $para.= " -hide $boot/boot.catalog -hide-joliet $boot/boot.catalog";
+    $para.= " -b $loader -c $boot/boot.cat";
+    $para.= " -hide $boot/boot.cat -hide-joliet $boot/boot.cat";
     $this -> {params} = $para;
     $this -> createISOLinuxConfig ($boot);
     return $this;
@@ -293,8 +293,8 @@ sub ix86_legacy {
     my $loader= $base{$arch}{loader};
     $para.= " -sort $sort" if $sort;
     $para.= " -no-emul-boot -boot-load-size 4 -boot-info-table";
-    $para.= " -b $loader -c $boot/boot.catalog";
-    $para.= " -hide $boot/boot.catalog -hide-joliet $boot/boot.catalog";
+    $para.= " -b $loader -c $boot/boot.cat";
+    $para.= " -hide $boot/boot.cat -hide-joliet $boot/boot.cat";
     $this -> {params} = $para;
     $this -> createISOLinuxConfig ($boot);
     return $this;
@@ -313,7 +313,7 @@ sub x86_64_efi {
     my $loader= $base{$arch}{efi};
     my $sort  = $this -> createLegacySortFile ("x86_64");
     my $src   = $this -> {source};
-    KIWIQX::qxx ("echo $src/images/pxeboot/vmlinuz 1000001 >> $sort");
+    KIWIQX::qxx ("echo $src/images/efiboot.img 1000001 >> $sort");
     #==========================================
     # add end-of-header marker
     #------------------------------------------
@@ -366,8 +366,8 @@ sub ia64_efi {
     $para.= " -boot-load-size ".$this->block_size($this->{source}."/".$loader);
     $para.= " -sort $sort" if $sort;
     $para.= " -b $loader";
-    $para.= " -c $boot/boot.catalog";
-    $para.= " -hide $boot/boot.catalog -hide-joliet $boot/boot.catalog";
+    $para.= " -c $boot/boot.cat";
+    $para.= " -hide $boot/boot.cat -hide-joliet $boot/boot.cat";
 
     $this -> {params} = $para;
     return $this;
@@ -384,7 +384,7 @@ sub s390_ikr {
     my $boot = $base{$arch}{boot};
     my $ikr  = $this -> createS390CDLoader($boot);
     $para.= " -eltorito-alt-boot";
-    $para.= " -hide $boot/boot.catalog -hide-joliet $boot/boot.catalog";
+    $para.= " -hide $boot/boot.cat -hide-joliet $boot/boot.cat";
     $para.= " -no-emul-boot";
     $para.= " -b $ikr";
     $this -> {params} = $para;
@@ -402,7 +402,7 @@ sub s390x_ikr {
     my $boot = $base{$arch}{boot};
     my $ikr  = $this -> createS390CDLoader($boot);
     $para.= " -eltorito-alt-boot";
-    $para.= " -hide $boot/boot.catalog -hide-joliet $boot/boot.catalog";
+    $para.= " -hide $boot/boot.cat -hide-joliet $boot/boot.cat";
     $para.= " -no-emul-boot";
     $para.= " -b $ikr";
     $this -> {params} = $para;
@@ -479,8 +479,8 @@ sub aarch64_efi {
     $para.= " -no-emul-boot";
     # do not add -boot-load-size 1 here
     $para.= " -b $loader";
-    $para.= " -c $boot/boot.catalog";
-    $para.= " -hide $boot/boot.catalog -hide-joliet $boot/boot.catalog";
+    $para.= " -c $boot/boot.cat";
+    $para.= " -hide $boot/boot.cat -hide-joliet $boot/boot.cat";
     $this -> {params} = $para;
     return $this;
 }
@@ -537,9 +537,9 @@ sub createLegacySortFile {
     if ($arch ne "aarch64") {
         find ({wanted => $wref,follow => 0 },$src."/".$base{$arch}{boot}."");
     }
-    print $FD "$ldir/".$base{$arch}{boot}."/boot.catalog 3"."\n";
-    print $FD $base{$arch}{boot}."/boot.catalog 3"."\n";
-    print $FD "$src/".$base{$arch}{boot}."/boot.catalog 3"."\n";
+    print $FD "$ldir/".$base{$arch}{boot}."/boot.cat 3"."\n";
+    print $FD $base{$arch}{boot}."/boot.cat 3"."\n";
+    print $FD "$src/".$base{$arch}{boot}."/boot.cat 3"."\n";
     foreach my $file (@list) {
         print $FD "$file 1"."\n";
     }

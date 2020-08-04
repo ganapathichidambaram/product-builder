@@ -565,11 +565,11 @@ sub Init {
         my $dirbase = "$this->{m_united}/$mediumname";
         $dirbase .= "$n" if not defined($dirext);
         $this->{m_dirlist}->{"$dirbase"} = 1;
-        $this->{m_dirlist}->{"$dirbase/repodata"} = 1;
+        #$this->{m_dirlist}->{"$dirbase/repodata"} = 1;
         my $curdir = "$dirbase/";
         my $num = $n;
         $num = 1 if $this->seperateMedium($n);
-        $this->{m_dirlist}->{"$dirbase/media.$num"} = 1;
+        #$this->{m_dirlist}->{"$dirbase/media.$num"} = 1;
         $this->{m_basesubdir}->{$n} = "$dirbase";
         $this->{m_dirlist}->{"$this->{m_basesubdir}->{$n}"} = 1;
     }
@@ -815,12 +815,12 @@ sub mainTask {
             $this->logMsg('I', "Created Iso image <$isoname>");
         }
         if ($is_bootable) {
-            if (! $iso->relocateCatalog()) {
-                return 1;
-            }
-            if (! $iso->fixCatalog()) {
-                return 1;
-            }
+            #if (! $iso->relocateCatalog()) {
+            #    return 1;
+            #}
+            #if (! $iso->fixCatalog()) {
+            #    return 1;
+            #}
             if ($hybridmedia) {
                 if(-d "$this->{m_basesubdir}->{$cd}/boot/aarch64") {
                    if(!$iso->createRPiHybrid()) {
@@ -1003,8 +1003,8 @@ sub setupPackageFiles {
                 for my $packKey( sort {
                         $poolPackages->{$a}->{priority}
                         <=> $poolPackages->{$b}->{priority}
-					|| indexOfArray($poolPackages->{$a}->{arch}, \@fallbacklist)
-					<=> indexOfArray($poolPackages->{$b}->{arch}, \@fallbacklist)
+                    || indexOfArray($poolPackages->{$a}->{arch}, \@fallbacklist)
+                    <=> indexOfArray($poolPackages->{$b}->{arch}, \@fallbacklist)
                     } keys(%{$poolPackages})
                 ) {
                     if ($this->{m_debug} >= 5) {
@@ -1013,7 +1013,7 @@ sub setupPackageFiles {
 
                     my $arch;
                     my $packPointer = $poolPackages->{$packKey};
-		    for my $checkarch(@fallbacklist) {
+            for my $checkarch(@fallbacklist) {
                         if ($this->{m_debug} >= 5) {
                             $this->logMsg('I', "    check architecture $checkarch ");
                         }
@@ -1900,18 +1900,18 @@ sub lookUpAllPackages {
                         $store = {};
                         $packPool->{$name} = $store;
                     }
-		    # look for products defined inside
-		    RPMQ::rpmq_add_flagsvers(\%flags, 'PROVIDENAME', 'PROVIDEFLAGS', 'PROVIDEVERSION');
+            # look for products defined inside
+            RPMQ::rpmq_add_flagsvers(\%flags, 'PROVIDENAME', 'PROVIDEFLAGS', 'PROVIDEVERSION');
                     for my $provide (@{$flags{'PROVIDENAME'} || []}) {
-			if ($provide =~ /^product\(\) = (.+)$/) {
+            if ($provide =~ /^product\(\) = (.+)$/) {
                             $this->logMsg('I', "Found product provides for $1");
-		            push @$productList, $1;
-		        }
-			if ($provide =~ /^product-cpeid\(\) = (.+)$/) {
+                    push @$productList, $1;
+                }
+            if ($provide =~ /^product-cpeid\(\) = (.+)$/) {
                             $package->{'cpeid'} = $1;
                             $package->{'cpeid'} =~ s/%([a-fA-F0-9]{2})/chr(hex($1))/sge;
                             $this->logMsg('I', "Found cpeid provides for $package->{'cpeid'}");
-		        }
+                }
                     }
                     $store->{$repokey} = $package;
                     $retval++;
