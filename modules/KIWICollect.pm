@@ -565,7 +565,9 @@ sub Init {
         my $dirbase = "$this->{m_united}/$mediumname";
         $dirbase .= "$n" if not defined($dirext);
         $this->{m_dirlist}->{"$dirbase"} = 1;
-        #$this->{m_dirlist}->{"$dirbase/repodata"} = 1;
+        $this->{m_dirlist}->{"$dirbase/BaseOS"} = 1;
+        $this->{m_dirlist}->{"$dirbase/Packages"} = 1;
+        $this->{m_dirlist}->{"$dirbase/repodata"} = 1;
         my $curdir = "$dirbase/";
         my $num = $n;
         $num = 1 if $this->seperateMedium($n);
