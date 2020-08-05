@@ -1585,7 +1585,8 @@ sub unpackMetapackages {
                         if (-d "$tmp/usr/lib/skelcd/CD$_"
                             and defined $this->{m_basesubdir}->{$_}
                         ) {
-                            qx(cp -a $tmp/usr/lib/skelcd/CD$_/* $this->{m_basesubdir}->{$_});
+                            #qx(cp -a $tmp/usr/lib/skelcd/CD$_/* $this->{m_basesubdir}->{$_});
+                            qx(rsync -avr --exclude='*grub.cfg' --exclude='*isolinux.cfg' $tmp/usr/lib/skelcd/NET/* $this->{m_basesubdir}->{$_});
                             # .treeinfo for virt-installer:
                             qx(cp -a $tmp/usr/lib/skelcd/CD$_/.treeinfo $this->{m_basesubdir}->{$_}) if (-f "$tmp/usr/lib/skelcd/CD$_/.treeinfo");
                             qx(cp -a $tmp/usr/lib/skelcd/CD$_/.discinfo $this->{m_basesubdir}->{$_}) if (-f "$tmp/usr/lib/skelcd/CD$_/.discinfo");
@@ -1602,6 +1603,7 @@ sub unpackMetapackages {
                                 and defined $this->{m_basesubdir}->{$_}
                             ) {
                                 qx(cp -a $tmp/usr/lib/skelcd/NET/* $this->{m_basesubdir}->{$_});
+                                qx(cp -a $tmp/usr/lib/skelcd/CD$_/* $this->{m_basesubdir}->{$_});
                                 # .treeinfo for virt-installer:
                                 qx(cp -a $tmp/usr/lib/skelcd/NET/.treeinfo $this->{m_basesubdir}->{$_}) if (-f "$tmp/usr/lib/skelcd/NET/.treeinfo");
                                 qx(cp -a $tmp/usr/lib/skelcd/NET/.discinfo $this->{m_basesubdir}->{$_}) if (-f "$tmp/usr/lib/skelcd/NET/.discinfo");
