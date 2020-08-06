@@ -566,8 +566,8 @@ sub Init {
         $dirbase .= "$n" if not defined($dirext);
         $this->{m_dirlist}->{"$dirbase"} = 1;
         $this->{m_dirlist}->{"$dirbase/BaseOS"} = 1;
-        $this->{m_dirlist}->{"$dirbase/Packages"} = 1;
-        $this->{m_dirlist}->{"$dirbase/repodata"} = 1;
+        $this->{m_dirlist}->{"$dirbase/BaseOS/Packages"} = 1;
+        $this->{m_dirlist}->{"$dirbase/BaseOS/repodata"} = 1;
         my $curdir = "$dirbase/";
         my $num = $n;
         $num = 1 if $this->seperateMedium($n);
@@ -1587,8 +1587,8 @@ sub unpackMetapackages {
                         if (-d "$tmp/usr/lib/skelcd/CD$_"
                             and defined $this->{m_basesubdir}->{$_}
                         ) {
-                            #qx(cp -a $tmp/usr/lib/skelcd/CD$_/* $this->{m_basesubdir}->{$_});
-                            qx(rsync -avr --exclude='*grub.cfg' --exclude='*isolinux.cfg' $tmp/usr/lib/skelcd/NET/* $this->{m_basesubdir}->{$_});
+                            qx(cp -a $tmp/usr/lib/skelcd/CD$_/* $this->{m_basesubdir}->{$_});
+
                             # .treeinfo for virt-installer:
                             qx(cp -a $tmp/usr/lib/skelcd/CD$_/.treeinfo $this->{m_basesubdir}->{$_}) if (-f "$tmp/usr/lib/skelcd/CD$_/.treeinfo");
                             qx(cp -a $tmp/usr/lib/skelcd/CD$_/.discinfo $this->{m_basesubdir}->{$_}) if (-f "$tmp/usr/lib/skelcd/CD$_/.discinfo");
@@ -1604,11 +1604,17 @@ sub unpackMetapackages {
                             if (-d "$tmp/usr/lib/skelcd/NET"
                                 and defined $this->{m_basesubdir}->{$_}
                             ) {
-                                qx(cp -a $tmp/usr/lib/skelcd/NET/* $this->{m_basesubdir}->{$_});
-                                qx(cp -a $tmp/usr/lib/skelcd/CD$_/* $this->{m_basesubdir}->{$_});
-                                # .treeinfo for virt-installer:
-                                qx(cp -a $tmp/usr/lib/skelcd/NET/.treeinfo $this->{m_basesubdir}->{$_}) if (-f "$tmp/usr/lib/skelcd/NET/.treeinfo");
-                                qx(cp -a $tmp/usr/lib/skelcd/NET/.discinfo $this->{m_basesubdir}->{$_}) if (-f "$tmp/usr/lib/skelcd/NET/.discinfo");
+                                my $cmd = "rsync -avr";
+                                if ( -f "$this->{m_basesubdir}->{$_}/isolinux/isolinux.cfg"){
+                                    $cmd .= " --exclude='*isolinux.cfg'";
+                                }
+
+                                if ( -f "$this->{m_basesubdir}->{$_}/EFI/BOOT/grub.cfg"){
+                                    $cmd .= " --exclude='*grub.cfg'";
+                                }
+
+                                $cmd .= " $tmp/usr/lib/skelcd/NET/* $this->{m_basesubdir}->{$_}";
+                                qx($cmd);
                                 $this->logMsg('I', "Unpack NET");
                                 $packageFound = 1;
                             } else {
